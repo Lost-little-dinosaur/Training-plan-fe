@@ -12,7 +12,7 @@
                     <el-menu-item index="1" @click="tempPassIndex(1)">
                         <template #title>
                             <el-icon>
-                                <Position/>
+                                <Notebook/>
                             </el-icon>
                             查看课程
                         </template>
@@ -20,23 +20,23 @@
                     <el-menu-item index="2" @click="tempPassIndex(2)">
                         <template #title>
                             <el-icon>
-                                <Notebook/>
+                                <DocumentAdd/>
                             </el-icon>
                             添加课程
                         </template>
                     </el-menu-item>
-                    <el-menu-item index="1" @click="tempPassIndex(3)">
+                    <el-menu-item index="3" @click="tempPassIndex(3)">
                         <template #title>
                             <el-icon>
-                                <Position/>
+                                <DataLine/>
                             </el-icon>
                             更改课程
                         </template>
                     </el-menu-item>
-                    <el-menu-item index="2" @click="tempPassIndex(4)">
+                    <el-menu-item index="4" @click="tempPassIndex(4)">
                         <template #title>
                             <el-icon>
-                                <Notebook/>
+                                <Delete/>
                             </el-icon>
                             删除课程
                         </template>
