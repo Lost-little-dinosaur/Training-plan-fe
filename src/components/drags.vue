@@ -289,12 +289,6 @@ const state = reactive({
         id: 3,
       },
       {
-        normal: false,
-        longremarks:
-          "必须获得2学分的创业教育学分，学生可以在创业教育选修课中修读。",
-        id: 9,
-      },
-      {
         normal: true,
         coursecode: "A0507050",
         coursename: "操作系统（甲）",
