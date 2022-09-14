@@ -14,7 +14,7 @@
                   filter=".forbid"
                   :force-fallback="true"
                   chosen-class="chosenClass"
-                  animation="300"
+                  animation="100"
                   @start="onStart"
                   @end="onEnd"
                   :group="state.groupB"
@@ -25,32 +25,39 @@
                   :move="onMove"
                 >
                   <template #item="{ element }">
-                    <div class="item move" >
+                    <div :class="element.disabledMove ? 'forbid item move' : 'item move'" v-if="element.normal">
                       <label class="move">{{ element.coursecode }}</label>
                       <el-divider direction="vertical" />
-                        <span class="coursename">{{ element.coursename }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="credit">{{ element.credit }}</span>
-                        <el-divider direction="vertical" />
-                        <span  class="totalhours">{{ element.totalhours }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="teachhours">{{ element.teachhours }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="pratice">{{ element.pratice }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="experiment">{{ element.experiment }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="cinclass">{{ element.cinclass }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="coutclass">{{ element.coutclass }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="semester">{{ element.semester }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="assessment">{{ element.assessment }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="time">{{ element.time }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="remarks">{{ element.remarks }}</span>
+                      <span class="coursename">{{ element.coursename }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="courseenglishname">{{
+                        element.courseenglishname
+                      }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="credit">{{ element.credit }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="totalhours">{{ element.totalhours }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="teachhours">{{ element.teachhours }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="pratice">{{ element.pratice }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="experiment">{{ element.experiment }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="cinclass">{{ element.cinclass }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="coutclass">{{ element.coutclass }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="semester">{{ element.semester }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="assessment">{{ element.assessment }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="time">{{ element.time }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="remarks">{{ element.remarks }}</span>
+                    </div>
+                    <div class="item move" v-else>
+                      <span class="longremarks">{{ element.longremarks }}</span>
                     </div>
                   </template>
                 </draggable>
@@ -66,7 +73,7 @@
                   filter=".forbid"
                   :force-fallback="true"
                   chosen-class="chosenClass"
-                  animation="300"
+                  animation="100"
                   @start="onStart"
                   @end="onEnd"
                   :group="state.groupA"
@@ -77,33 +84,98 @@
                   :move="onMove"
                 >
                   <template #item="{ element }">
-                    <div class="item move">
+                    <div :class="element.disabledMove ? 'forbid item move' : 'item move'" v-if="element.normal">
                       <label class="move">{{ element.coursecode }}</label>
-                        <el-divider direction="vertical" />
-                        <span class="coursename">{{ element.coursename }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="credit">{{ element.credit }}</span>
-                        <el-divider direction="vertical" />
-                        <span  class="totalhours">{{ element.totalhours }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="teachhours">{{ element.teachhours }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="pratice">{{ element.pratice }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="experiment">{{ element.experiment }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="cinclass">{{ element.cinclass }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="coutclass">{{ element.coutclass }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="semester">{{ element.semester }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="assessment">{{ element.assessment }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="time">{{ element.time }}</span>
-                        <el-divider direction="vertical" />
-                        <span class="remarks">{{ element.remarks }}</span>
-                      
+                      <el-divider direction="vertical" />
+                      <span class="coursename">{{ element.coursename }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="courseenglishname">{{
+                        element.courseenglishname
+                      }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="credit">{{ element.credit }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="totalhours">{{ element.totalhours }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="teachhours">{{ element.teachhours }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="pratice">{{ element.pratice }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="experiment">{{ element.experiment }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="cinclass">{{ element.cinclass }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="coutclass">{{ element.coutclass }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="semester">{{ element.semester }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="assessment">{{ element.assessment }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="time">{{ element.time }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="remarks">{{ element.remarks }}</span>
+                    </div>
+                    <div class="item move" v-else>
+                      <span class="longremarks">{{ element.longremarks }}</span>
+                    </div>
+                  </template>
+                </draggable>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item title="通识选修" class="l4" name="6">
+              <div class="group">
+                <draggable
+                  :drag-class="dragClass"
+                  :list="state.modules.arr3"
+                  ghost-class="ghost"
+                  handle=".move"
+                  filter=".forbid"
+                  :force-fallback="true"
+                  chosen-class="chosenClass"
+                  animation="100"
+                  @start="onStart"
+                  @end="onEnd"
+                  :group="state.groupC"
+                  :fallback-class="true"
+                  :fallback-on-body="true"
+                  :touch-start-threshold="50"
+                  :fallback-tolerance="50"
+                  :move="onMove"
+                >
+                  <template #item="{ element }">
+                    <div :class="element.disabledMove ? 'forbid item move' : 'item move'" v-if="element.normal">
+                      <label class="move">{{ element.coursecode }}</label>
+                      <el-divider direction="vertical" />
+                      <span class="coursename">{{ element.coursename }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="courseenglishname">{{
+                        element.courseenglishname
+                      }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="credit">{{ element.credit }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="totalhours">{{ element.totalhours }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="teachhours">{{ element.teachhours }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="pratice">{{ element.pratice }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="experiment">{{ element.experiment }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="cinclass">{{ element.cinclass }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="coutclass">{{ element.coutclass }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="semester">{{ element.semester }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="assessment">{{ element.assessment }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="time">{{ element.time }}</span>
+                      <el-divider direction="vertical" />
+                      <span class="remarks">{{ element.remarks }}</span>
+                    </div>
+                    <div class="item move" v-else>
+                      <span class="longremarks">{{ element.longremarks }}</span>
                     </div>
                   </template>
                 </draggable>
@@ -127,28 +199,45 @@ const state = reactive({
   groupA: {
     name: "itxst",
     put: true, //允许拖入
-    pull: () => {
-      let res = state.modules.arr1.length > 1;
-      //当A组元素小于等于3个时，不允许再拖出元素了
-      state.message = res ? "只能拖出1个" : "不能再拖了";
-      return res;
-    },
+    pull: true,
   },
   groupB: {
     name: "itxst",
     put: true, //允许拖入
-    pull: () => {
-      let res = state.modules.arr1.length > 1;
-      //当A组元素小于等于3个时，不允许再拖出元素了
-      state.message = res ? "只能拖出1个" : "不能再拖了";
-      return res;
-    },
+    pull: true,
+  },
+  groupC: {
+    name: "itxst",
+    put: true, //允许拖入
+    pull: true,
   },
   modules: {
     arr1: [
       {
+        normal: true,
+        coursecode: "课程代码",
+        coursename: "课程名称",
+        courseenglishname: "课程英文名称",
+        credit: "学分",
+        totalhours: "总学时",
+        teachhours: "讲授",
+        pratice: "课程实践",
+        experiment: "实验",
+        cinclass: "课内上机",
+        coutclass: "课外上机",
+        semester: "开课学期",
+        assessment: "考核方式",
+        time: "起始周",
+        remarks: "备注",
+        id: 0,
+        disabledMove: true,
+        disabledPark: true 
+      },
+      {
+        normal: true,
         coursecode: "A0507980",
         coursename: "数字电路设计",
+        courseenglishname: "Digital Circuits Design",
         credit: "3.0",
         totalhours: 48,
         teachhours: 48,
@@ -163,8 +252,10 @@ const state = reactive({
         id: 1,
       },
       {
+        normal: true,
         coursecode: "A0401140",
         coursename: "电路与电子学",
+        courseenglishname: "Circuits and Electronics",
         credit: "3.0",
         totalhours: 48,
         teachhours: 48,
@@ -179,8 +270,10 @@ const state = reactive({
         id: 2,
       },
       {
+        normal: true,
         coursecode: "A0500950",
         coursename: "数据结构（甲）",
+        courseenglishname: "Data Structure (A)",
         credit: "4.0",
         totalhours: 64,
         teachhours: 64,
@@ -195,8 +288,16 @@ const state = reactive({
         id: 3,
       },
       {
+        normal: false,
+        longremarks:
+          "必须获得2学分的创业教育学分，学生可以在创业教育选修课中修读。",
+        id: 9,
+      },
+      {
+        normal: true,
         coursecode: "A0507050",
         coursename: "操作系统（甲）",
+        courseenglishname: "Operating System(A)",
         credit: "4.0",
         totalhours: 64,
         teachhours: 64,
@@ -212,9 +313,31 @@ const state = reactive({
       },
     ],
     arr2: [
+    {
+        normal: true,
+        coursecode: "课程代码",
+        coursename: "课程名称",
+        courseenglishname: "课程英文名称",
+        credit: "学分",
+        totalhours: "总学时",
+        teachhours: "讲授",
+        pratice: "课程实践",
+        experiment: "实验",
+        cinclass: "课内上机",
+        coutclass: "课外上机",
+        semester: "开课学期",
+        assessment: "考核方式",
+        time: "起始周",
+        remarks: "备注",
+        id: 0,
+        disabledMove: true,
+        disabledPark: true 
+      },
       {
+        normal: true,
         coursecode: "B0501690",
         coursename: "网络安全原理与实践",
+        courseenglishname: "Network Security Principles and Practices",
         credit: "3.0",
         totalhours: 48,
         teachhours: 32,
@@ -229,8 +352,10 @@ const state = reactive({
         id: 5,
       },
       {
+        normal: true,
         coursecode: "B050737s",
         coursename: "数据挖掘",
+        courseenglishname: "Data Mining",
         credit: "3.0",
         totalhours: 48,
         teachhours: 36,
@@ -245,8 +370,10 @@ const state = reactive({
         id: 6,
       },
       {
+        normal: true,
         coursecode: "S0501721",
         coursename: "软件开发实践1",
+        courseenglishname: "Software Development Practice 1",
         credit: "1.0",
         totalhours: "2周",
         teachhours: 0,
@@ -259,6 +386,14 @@ const state = reactive({
         time: "短学期",
         remarks: "",
         id: 7,
+      },
+    ],
+    arr3: [
+      {
+        normal: false,
+        longremarks:
+          "必须获得2学分的创业教育学分，学生可以在创业教育选修课中修读。",
+        id: 8,
       },
     ],
   },
@@ -302,6 +437,7 @@ body {
   justify-content: flex-start;
   align-content: center;
   width: auto;
+  height: auto;
   margin-right: 20px;
 }
 .item {
@@ -311,7 +447,7 @@ body {
   background-color: #fff;
   margin-bottom: 10px;
   display: flex;
-  height: 36px;
+  height: 41px;
   user-select: none;
 }
 
@@ -323,7 +459,7 @@ body {
   cursor: move;
 }
 .item > span {
-  padding: 6px 10px;
+  padding: 0;
   color: #666;
 }
 .ghost {
@@ -348,30 +484,50 @@ body {
 .l4 {
   margin-left: 40px;
 }
-.coursename{
-    width:200px;
-    text-align: left;
-    display: inline-block;
+.coursename {
+  width: 150px;
+  text-align: left;
+  display: inline-block;
 }
-.credit,.teachhours,.pratice,.experiment,.cinclass,.coutclass,.semester,.assessment {
-    width:20px;
-    text-align: center;
-    display: inline-block;
+.courseenglishname {
+  width: 250px;
+  text-align: left;
+  display: inline-block;
+}
+.credit,
+.teachhours,
+.pratice,
+.experiment,
+.cinclass,
+.coutclass,
+.semester,
+.assessment {
+  width: 26px;
+  text-align: center;
+  display: inline-block;
 }
 .totalhours {
-    width:30px;
-    text-align: center;
-    display: inline-block;
+  width: 30px;
+  text-align: center;
+  display: inline-block;
 }
 .time {
-    width:50px;
-    text-align: center;
-    display: inline-block;
+  width: 50px;
+  text-align: center;
+  display: inline-block;
 }
 .remarks {
-    width:50px;
-    text-align: center;
-    display: inline-block;
+  width: 50px;
+  text-align: center;
+  display: inline-block;
 }
-
+label.move {
+  width: 80px;
+}
+.longremarks {
+  text-align: left;
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 8px;
+}
 </style>
