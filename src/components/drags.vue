@@ -1,7 +1,23 @@
 <template>
+  <div class="demo-progress">
+    <el-progress
+      :text-inside="true"
+      :stroke-width="20"
+      :percentage="percentage"    
+      color="green"
+    >
+      <span>总学时</span><span>:128</span>
+      </el-progress>
+
+  </div>
   <div class="demo-collapse">
     <el-collapse v-model="activeNames" @change="handleChange">
       <el-collapse-item title="计算机科学与技术" class="l1" name="1">
+
+        <div class="demo-progess">
+          <el-process :percentage="12"/>
+        </div>
+        
         <el-collapse-item title="  通识类课程" class="l2" name="2">
           <el-collapse-item title="通识实践" class="l3" name="3">
             <el-collapse-item title="通识实践必修" class="l4" name="4">
@@ -195,6 +211,14 @@
 import {ref, reactive} from "vue";
 //导入draggable组件
 import draggable from "vuedraggable";
+
+
+
+let percentage = ref(22)
+const cacuAllTime = () => (
+  console.log('ok'),
+  percentage.value=100
+)
 
 const state = reactive({
   groupA: {
@@ -397,6 +421,7 @@ const state = reactive({
 //拖拽开始的事件
 const onStart = () => {
     console.log("开始拖拽");
+    this.onEnd();
 };
 
 //拖拽结束的事件
@@ -411,6 +436,8 @@ const onMove = (e, originalEvent) => {
     return true;
 };
 </script>
+
+
 <style>
 body {
     padding: 0px;
@@ -476,6 +503,10 @@ body {
     background-color: aquamarine;
 }
 
+.demo-progress .el-progress--line {
+  margin-bottom: 15px;
+  width: 350px;
+}
 .l1 {
     margin-left: 10px;
 }

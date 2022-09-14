@@ -13,15 +13,24 @@
             >
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="课程编号" prop="coursecode">
-                            <el-input v-model="ruleForm.coursecode" type="password" autocomplete="off"/>
+                        <el-form-item label="课程代码" prop="coursecode">
+                            <el-input v-model="ruleForm.coursecode" type="text" autocomplete="off"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="课程名字" prop="coursename">
+                        <el-form-item label="课程名称" prop="coursename">
                             <el-input
                                 v-model="ruleForm.coursename"
-                                type="password"
+                                type="text"
+                                autocomplete="off"
+                            />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="课程英文名称" prop="courseenglishname">
+                            <el-input
+                                v-model="ruleForm.courseenglishname"
+                                type="text"
                                 autocomplete="off"
                             />
                         </el-form-item>
@@ -32,17 +41,17 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="总时间" prop="totalhours">
+                        <el-form-item label="总学时" prop="totalhours">
                             <el-input v-model.number="ruleForm.totalhours"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="教学时间" prop="teachhours">
+                        <el-form-item label="讲授" prop="teachhours">
                             <el-input v-model.number="ruleForm.teachhours"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="练习" prop="pratice">
+                        <el-form-item label="课程实践" prop="pratice">
                             <el-input v-model.number="ruleForm.pratice"/>
                         </el-form-item>
                     </el-col>
@@ -52,33 +61,33 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="cinclass" prop="cinclass">
+                        <el-form-item label="课内上机" prop="cinclass">
                             <el-input v-model.number="ruleForm.cinclass"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="开班数量" prop="coutclass">
+                        <el-form-item label="课外上机" prop="coutclass">
                             <el-input v-model.number="ruleForm.coutclass"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="学期" prop="semester">
+                        <el-form-item label="开课学期" prop="semester">
                             <el-input v-model.number="ruleForm.semester"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="任务" prop="assessment">
+                        <el-form-item label="考核方式" prop="assessment">
                             <el-input v-model.number="ruleForm.assessment"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="时间" prop="time">
-                            <el-input v-model.number="ruleForm.time"/>
+                        <el-form-item label="起始周" prop="time">
+                            <el-input v-model.string="ruleForm.time"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="标记" prop="remarks">
-                            <el-input v-model.number="ruleForm.remarks"/>
+                        <el-form-item label="备注" prop="remarks">
+                            <el-input v-model.string="ruleForm.remarks"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -111,14 +120,14 @@ const ruleFormRef = ref<FormInstance>()
 
 const validateCourseCode = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入课程编号！'))
+        callback(new Error('请输入课程代码！'))
     } else {
         callback()
     }
 }
 const validateCourseName = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入课程名字！'))
+        callback(new Error('请输入课程名称！'))
     } else {
         callback()
     }
@@ -132,73 +141,68 @@ const validateCredit = (rule: any, value: any, callback: any) => {
 }
 const validateTotalHours = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入总时间！'))
+        callback(new Error('请输入总学时！'))
     } else {
         callback()
     }
 }
 const validateTeachHours = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入教学时间！'))
+        callback(new Error('请输入讲授学时！'))
     } else {
         callback()
     }
 }
 const validatePratice = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入练习！'))
+        callback(new Error('请输入课程实践学时！'))
     } else {
         callback()
     }
 }
 const validateExperiment = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入实验！'))
+        callback(new Error('请输入实验学时！'))
     } else {
         callback()
     }
 }
 const validateCinclass = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入cinclass！'))
+        callback(new Error('请输入课内上机学时！'))
     } else {
         callback()
     }
 }
 const validateCoutclass = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入coutclass！'))
+        callback(new Error('请输入课外上机学时！'))
     } else {
         callback()
     }
 }
 const validateSemester = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入semester！'))
+        callback(new Error('请输入开课学期！'))
     } else {
         callback()
     }
 }
 const validateAssessment = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入assessment！'))
+        callback(new Error('请输入考核方式！'))
     } else {
         callback()
     }
 }
 const validateTime = (rule: any, value: any, callback: any) => {
     if (value === '') {
-        callback(new Error('请输入time！'))
+        callback(new Error('请输入起始周！'))
     } else {
         callback()
     }
 }
 const validateRemarks = (rule: any, value: any, callback: any) => {
-    if (value === '') {
-        callback(new Error('请输入remarks！'))
-    } else {
-        callback()
-    }
 }
 const validateId = (rule: any, value: any, callback: any) => {
     if (value === '') {
@@ -212,6 +216,7 @@ const validateId = (rule: any, value: any, callback: any) => {
 const ruleForm = reactive({
     coursecode: "",
     coursename: "",
+    courseenglishname:"",
     credit: "",
     totalhours: "",
     teachhours: "",
