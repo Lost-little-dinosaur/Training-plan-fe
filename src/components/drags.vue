@@ -187,11 +187,12 @@
     </el-collapse>
   </div>
 
-  <div class="msg">{{ state.message }}</div>
-  <div class="itxst"></div>
+
+    <div class="msg">{{ state.message }}</div>
+    <div class="itxst"></div>
 </template>
 <script setup>
-import { ref, reactive } from "vue";
+import {ref, reactive} from "vue";
 //导入draggable组件
 import draggable from "vuedraggable";
 
@@ -401,34 +402,36 @@ const state = reactive({
 
 //拖拽开始的事件
 const onStart = () => {
-  console.log("开始拖拽");
+    console.log("开始拖拽");
 };
 
 //拖拽结束的事件
 const onEnd = () => {
-  console.log("结束拖拽");
+    console.log("结束拖拽");
 };
 
 const onMove = (e, originalEvent) => {
-  //不允许停靠
-  if (e.relatedContext.element.disabledPark == true) return false;
+    //不允许停靠
+    if (e.relatedContext.element.disabledPark == true) return false;
 
-  return true;
+    return true;
 };
 </script>
 <style>
 body {
-  padding: 0px;
-  margin: 0px;
-  background-color: #f1f1f1;
+    padding: 0px;
+    margin: 0px;
+    background-color: #f1f1f1;
 }
+
 .msg {
-  padding: 10px 20px 0px 20px;
+    padding: 10px 20px 0px 20px;
 }
+
 .itxst {
-  background-color: #f1f1f1;
-  display: flex;
-  padding: 20px;
+    background-color: #f1f1f1;
+    display: flex;
+    padding: 20px;
 }
 
 .group {
@@ -440,6 +443,7 @@ body {
   height: auto;
   margin-right: 20px;
 }
+
 .item {
   border: solid 1px #ddd;
   padding: 0px;
@@ -452,37 +456,46 @@ body {
 }
 
 .item > label {
-  padding: 6px 10px;
-  color: #333;
+    padding: 6px 10px;
+    color: #333;
 }
+
 .item > label:hover {
-  cursor: move;
+    cursor: move;
 }
+
 .item > span {
   padding: 0;
   color: #666;
 }
+
 .ghost {
-  border: solid 1px rgb(19, 41, 239) !important;
+    border: solid 1px rgb(19, 41, 239) !important;
 }
+
 .chosenClass {
-  opacity: 1;
-  border: solid 1px red;
+    opacity: 1;
+    border: solid 1px red;
 }
+
 .fallbackClass {
-  background-color: aquamarine;
+    background-color: aquamarine;
 }
+
 .l1 {
-  margin-left: 10px;
+    margin-left: 10px;
 }
+
 .l2 {
-  margin-left: 20px;
+    margin-left: 20px;
 }
+
 .l3 {
-  margin-left: 30px;
+    margin-left: 30px;
 }
+
 .l4 {
-  margin-left: 40px;
+    margin-left: 40px;
 }
 .coursename {
   width: 150px;
@@ -506,16 +519,20 @@ body {
   text-align: center;
   display: inline-block;
 }
+
+
 .totalhours {
   width: 30px;
   text-align: center;
   display: inline-block;
 }
+
 .time {
   width: 50px;
   text-align: center;
   display: inline-block;
 }
+
 .remarks {
   width: 50px;
   text-align: center;
