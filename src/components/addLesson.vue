@@ -95,6 +95,9 @@
                             <el-input v-model.number="ruleForm.id"/>
                         </el-form-item>
                     </el-col>
+                    <el-col>
+                        <el-cascader :options="options" clearable />
+                    </el-col>
                     <el-col :span="12">
                         <el-form-item>
                             <el-button type="primary" @click="submitForm(ruleFormRef)"
@@ -116,6 +119,32 @@
 import {reactive, ref} from 'vue'
 import type {FormInstance} from 'element-plus'
 
+const options = [
+    {
+        value:'CS',
+        label:'计算机科学与技术',
+        children:[{
+            value:'normalmain',
+            label:'通识类课程',
+            children:[
+                {
+                    value:'normalmust',
+                    label:'通识必修'
+                },
+                {
+                    value:'normalchoose',
+                    label:'通识选修'
+                },
+                {
+                    value:'subjectmust',
+                    label:'专业必修'
+                }
+            ]    
+        }
+
+        ]
+    }
+]
 const ruleFormRef = ref<FormInstance>()
 
 const validateCourseCode = (rule: any, value: any, callback: any) => {
