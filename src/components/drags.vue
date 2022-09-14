@@ -11,19 +11,15 @@
 
   </div>
   <div class="demo-collapse">
+    <button @click="changeMethod(22)">test</button>
     <el-collapse v-model="activeNames" @change="handleChange">
       <el-collapse-item title="计算机科学与技术" class="l1" name="1">
-
-        <div class="demo-progess">
-          <el-process :percentage="12"/>
-        </div>
         
         <el-collapse-item title="  通识类课程" class="l2" name="2">
           <el-collapse-item title="通识实践" class="l3" name="3">
             <el-collapse-item title="通识实践必修" class="l4" name="4">
               <div class="group">
                 <draggable
-                  :drag-class="dragClass"
                   :list="state.modules.arr2"
                   ghost-class="ghost"
                   handle=".move"
@@ -82,7 +78,6 @@
             <el-collapse-item title="专业必修" class="l4" name="5">
               <div class="group">
                 <draggable
-                  :drag-class="dragClass"
                   :list="state.modules.arr1"
                   ghost-class="ghost"
                   handle=".move"
@@ -141,7 +136,6 @@
             <el-collapse-item title="通识选修" class="l4" name="6">
               <div class="group">
                 <draggable
-                  :drag-class="dragClass"
                   :list="state.modules.arr3"
                   ghost-class="ghost"
                   handle=".move"
@@ -207,14 +201,24 @@
     <div class="msg">{{ state.message }}</div>
     <div class="itxst"></div>
 </template>
-<script setup>
+<script lang="ts">
 import {ref, reactive} from "vue";
 //导入draggable组件
 import draggable from "vuedraggable";
+export default {
+  methods:{
+    changeMethod(n:number){
+      alert(n);
+      this.percentage=n;
+    }
+  },
+  components:{
+    draggable,
+  },
+  setup(){
+    
 
-
-
-let percentage = ref(22)
+let percentage = ref(88)
 const cacuAllTime = () => (
   console.log('ok'),
   percentage.value=100
@@ -435,6 +439,18 @@ const onMove = (e, originalEvent) => {
 
     return true;
 };
+return{
+  onStart,
+  onEnd,
+  onMove,
+  percentage,
+  cacuAllTime,
+  state,
+
+}
+  }
+}
+
 </script>
 
 

@@ -41,7 +41,7 @@ export default defineComponent({
     },
     data() {
         return {
-            nowIndex: 2
+            nowIndex: 1
         }
     },
     components: {
