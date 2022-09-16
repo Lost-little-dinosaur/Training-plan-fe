@@ -7,6 +7,8 @@
             <el-main>
                 <drag v-if="nowIndex===1"/>
                 <addLesson v-if="nowIndex===2"/>
+                <testTable v-if="nowIndex===3"/>
+                <testTree v-if="nowIndex===4"/>
             </el-main>
             <el-footer>
                 <div style="height: 100px">
@@ -29,13 +31,14 @@
 import Aside from "@/components/aside.vue";
 import Drag from "@/components/drags.vue";
 import addLesson from "@/components/addLesson.vue"
+import testTable from "@/components/testTable.vue"
+import testTree from "@/components/testTree.vue"
 import {defineComponent} from 'vue'
 
 export default defineComponent({
     name: 'index',
     methods: {
         updateIndex(n: number) {
-            // alert("hahahaha");
             this.nowIndex = n;
         },
     },
@@ -45,10 +48,12 @@ export default defineComponent({
         }
     },
     components: {
-        Aside,
-        Drag,
-        addLesson
-    }
+    Aside,
+    Drag,
+    addLesson,
+    testTable,
+    testTree
+}
 })
 
 </script>

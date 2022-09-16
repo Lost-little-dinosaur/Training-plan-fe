@@ -3,472 +3,569 @@
     <el-progress
       :text-inside="true"
       :stroke-width="20"
-      :percentage="percentage"    
+      :percentage="percentage"
       color="green"
     >
       <span>总学时</span><span>:128</span>
-      </el-progress>
-
+    </el-progress>
   </div>
   <div class="demo-collapse">
     <button @click="changeMethod(22)">test</button>
     <el-collapse v-model="activeNames" @change="handleChange">
-      <el-collapse-item title="计算机科学与技术" class="l1" name="1">
-        
-        <el-collapse-item title="  通识类课程" class="l2" name="2">
-          <el-collapse-item title="通识实践" class="l3" name="3">
-            <el-collapse-item title="通识实践必修" class="l4" name="4">
-              <div class="group">
-                <draggable
-                  :list="state.modules.arr2"
-                  ghost-class="ghost"
-                  handle=".move"
-                  filter=".forbid"
-                  :force-fallback="true"
-                  chosen-class="chosenClass"
-                  animation="100"
-                  @start="onStart"
-                  @end="onEnd"
-                  :group="state.groupB"
-                  :fallback-class="true"
-                  :fallback-on-body="true"
-                  :touch-start-threshold="50"
-                  :fallback-tolerance="50"
-                  :move="onMove"
-                >
-                  <template #item="{ element }">
-                    <div :class="element.disabledMove ? 'forbid item move' : 'item move'" v-if="element.normal">
-                      <label class="move">{{ element.coursecode }}</label>
-                      <el-divider direction="vertical" />
-                      <span class="coursename">{{ element.coursename }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="courseenglishname">{{
-                        element.courseenglishname
-                      }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="credit">{{ element.credit }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="totalhours">{{ element.totalhours }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="teachhours">{{ element.teachhours }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="pratice">{{ element.pratice }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="experiment">{{ element.experiment }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="cinclass">{{ element.cinclass }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="coutclass">{{ element.coutclass }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="semester">{{ element.semester }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="assessment">{{ element.assessment }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="time">{{ element.time }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="remarks">{{ element.remarks }}</span>
+      <el-collapse-item class="l1">
+        <template #title>
+          计算机科学与技术<el-button type="primary" class="mkson" @click="mkson"
+            >创建子分支</el-button
+          >
+          <el-button type="primary" class="mkbro" @click="mkbro"
+            >创建同级分支</el-button
+          >
+        </template>
+        <div v-for="item1 in secmenu" :key="item1.id">
+          <el-collapse-item class="l2">
+            <template #title>
+              {{ item1.title }}
+            </template>
+            <div v-for="item2 in thirdmenu" :key="item2.id">
+              <el-collapse-item class="l3" v-if="item2.parent == item1.id">
+                <template #title>
+                  {{ item2.title }}
+                </template>
+                <div v-for="item3 in forthmenu" :key="item3.id">
+                  <el-collapse-item class="l4" v-if="item3.parent == item2.id">
+                    <template #title>
+                      {{ item3.title }}
+                    </template>
+                    <div class="group">
+                      <!-- 在这里修改显示的逻辑，不是单纯的显示arr2，而是与目录相结合 -->
+                      <draggable
+                        :list="item3.table"
+                        ghost-class="ghost"
+                        handle=".move"
+                        filter=".forbid"
+                        :force-fallback="true"
+                        chosen-class="chosenClass"
+                        animation="100"
+                        @start="onStart"
+                        @end="onEnd"
+                        :group="state.groupB"
+                        :fallback-class="true"
+                        :fallback-on-body="true"
+                        :touch-start-threshold="50"
+                        :fallback-tolerance="50"
+                        :move="onMove"
+                      >
+                        <template #item="{ element }">
+                          <div
+                            :class="
+                              element.disabledMove
+                                ? 'forbid item move'
+                                : 'item move'
+                            "
+                            v-if="element.normal"
+                          >
+                            <label class="move">{{ element.coursecode }}</label>
+                            <el-divider direction="vertical" />
+                            <span class="coursename">{{
+                              element.coursename
+                            }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="courseenglishname">{{
+                              element.courseenglishname
+                            }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="credit">{{ element.credit }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="totalhours">{{
+                              element.totalhours
+                            }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="teachhours">{{
+                              element.teachhours
+                            }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="pratice">{{ element.pratice }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="experiment">{{
+                              element.experiment
+                            }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="cinclass">{{ element.cinclass }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="coutclass">{{
+                              element.coutclass
+                            }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="semester">{{ element.semester }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="assessment">{{
+                              element.assessment
+                            }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="time">{{ element.time }}</span>
+                            <el-divider direction="vertical" />
+                            <span class="remarks">{{ element.remarks }}</span>
+                          </div>
+                          <div class="item move" v-else>
+                            <span class="longremarks">{{
+                              element.longremarks
+                            }}</span>
+                          </div>
+                        </template>
+                      </draggable>
                     </div>
-                    <div class="item move" v-else>
-                      <span class="longremarks">{{ element.longremarks }}</span>
-                    </div>
-                  </template>
-                </draggable>
-              </div>
-            </el-collapse-item>
-            <el-collapse-item title="专业必修" class="l4" name="5">
-              <div class="group">
-                <draggable
-                  :list="state.modules.arr1"
-                  ghost-class="ghost"
-                  handle=".move"
-                  filter=".forbid"
-                  :force-fallback="true"
-                  chosen-class="chosenClass"
-                  animation="100"
-                  @start="onStart"
-                  @end="onEnd"
-                  :group="state.groupA"
-                  :fallback-class="true"
-                  :fallback-on-body="true"
-                  :touch-start-threshold="50"
-                  :fallback-tolerance="50"
-                  :move="onMove"
-                >
-                  <template #item="{ element }">
-                    <div :class="element.disabledMove ? 'forbid item move' : 'item move'" v-if="element.normal">
-                      <label class="move">{{ element.coursecode }}</label>
-                      <el-divider direction="vertical" />
-                      <span class="coursename">{{ element.coursename }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="courseenglishname">{{
-                        element.courseenglishname
-                      }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="credit">{{ element.credit }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="totalhours">{{ element.totalhours }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="teachhours">{{ element.teachhours }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="pratice">{{ element.pratice }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="experiment">{{ element.experiment }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="cinclass">{{ element.cinclass }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="coutclass">{{ element.coutclass }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="semester">{{ element.semester }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="assessment">{{ element.assessment }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="time">{{ element.time }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="remarks">{{ element.remarks }}</span>
-                    </div>
-                    <div class="item move" v-else>
-                      <span class="longremarks">{{ element.longremarks }}</span>
-                    </div>
-                  </template>
-                </draggable>
-              </div>
-            </el-collapse-item>
-            <el-collapse-item title="通识选修" class="l4" name="6">
-              <div class="group">
-                <draggable
-                  :list="state.modules.arr3"
-                  ghost-class="ghost"
-                  handle=".move"
-                  filter=".forbid"
-                  :force-fallback="true"
-                  chosen-class="chosenClass"
-                  animation="100"
-                  @start="onStart"
-                  @end="onEnd"
-                  :group="state.groupC"
-                  :fallback-class="true"
-                  :fallback-on-body="true"
-                  :touch-start-threshold="50"
-                  :fallback-tolerance="50"
-                  :move="onMove"
-                >
-                  <template #item="{ element }">
-                    <div :class="element.disabledMove ? 'forbid item move' : 'item move'" v-if="element.normal">
-                      <label class="move">{{ element.coursecode }}</label>
-                      <el-divider direction="vertical" />
-                      <span class="coursename">{{ element.coursename }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="courseenglishname">{{
-                        element.courseenglishname
-                      }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="credit">{{ element.credit }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="totalhours">{{ element.totalhours }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="teachhours">{{ element.teachhours }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="pratice">{{ element.pratice }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="experiment">{{ element.experiment }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="cinclass">{{ element.cinclass }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="coutclass">{{ element.coutclass }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="semester">{{ element.semester }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="assessment">{{ element.assessment }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="time">{{ element.time }}</span>
-                      <el-divider direction="vertical" />
-                      <span class="remarks">{{ element.remarks }}</span>
-                    </div>
-                    <div class="item move" v-else>
-                      <span class="longremarks">{{ element.longremarks }}</span>
-                    </div>
-                  </template>
-                </draggable>
-              </div>
-            </el-collapse-item>
+                  </el-collapse-item>
+                </div>
+                <div class="group">
+                  <draggable
+                    :list="item2.table"
+                    ghost-class="ghost"
+                    handle=".move"
+                    filter=".forbid"
+                    :force-fallback="true"
+                    chosen-class="chosenClass"
+                    animation="100"
+                    @start="onStart"
+                    @end="onEnd"
+                    :group="state.groupA"
+                    :fallback-class="true"
+                    :fallback-on-body="true"
+                    :touch-start-threshold="50"
+                    :fallback-tolerance="50"
+                    :move="onMove"
+                  >
+                    <template #item="{ element }">
+                      <div
+                        :class="
+                          element.disabledMove
+                            ? 'forbid item move'
+                            : 'item move'
+                        "
+                        v-if="element.normal"
+                      >
+                        <label class="move">{{ element.coursecode }}</label>
+                        <el-divider direction="vertical" />
+                        <span class="coursename">{{ element.coursename }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="courseenglishname">{{
+                          element.courseenglishname
+                        }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="credit">{{ element.credit }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="totalhours">{{ element.totalhours }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="teachhours">{{ element.teachhours }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="pratice">{{ element.pratice }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="experiment">{{ element.experiment }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="cinclass">{{ element.cinclass }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="coutclass">{{ element.coutclass }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="semester">{{ element.semester }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="assessment">{{ element.assessment }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="time">{{ element.time }}</span>
+                        <el-divider direction="vertical" />
+                        <span class="remarks">{{ element.remarks }}</span>
+                      </div>
+                      <div class="item move" v-else>
+                        <span class="longremarks">{{
+                          element.longremarks
+                        }}</span>
+                      </div>
+                    </template>
+                  </draggable>
+                </div>
+              </el-collapse-item>
+            </div>
+            <div class="group">
+              <draggable
+                :list="item1.table"
+                ghost-class="ghost"
+                handle=".move"
+                filter=".forbid"
+                :force-fallback="true"
+                chosen-class="chosenClass"
+                animation="100"
+                @start="onStart"
+                @end="onEnd"
+                :group="state.groupC"
+                :fallback-class="true"
+                :fallback-on-body="true"
+                :touch-start-threshold="50"
+                :fallback-tolerance="50"
+                :move="onMove"
+              >
+                <template #item="{ element }">
+                  <div
+                    :class="
+                      element.disabledMove ? 'forbid item move' : 'item move'
+                    "
+                    v-if="element.normal"
+                  >
+                    <label class="move">{{ element.coursecode }}</label>
+                    <el-divider direction="vertical" />
+                    <span class="coursename">{{ element.coursename }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="courseenglishname">{{
+                      element.courseenglishname
+                    }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="credit">{{ element.credit }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="totalhours">{{ element.totalhours }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="teachhours">{{ element.teachhours }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="pratice">{{ element.pratice }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="experiment">{{ element.experiment }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="cinclass">{{ element.cinclass }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="coutclass">{{ element.coutclass }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="semester">{{ element.semester }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="assessment">{{ element.assessment }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="time">{{ element.time }}</span>
+                    <el-divider direction="vertical" />
+                    <span class="remarks">{{ element.remarks }}</span>
+                  </div>
+                  <div class="item move" v-else>
+                    <span class="longremarks">{{ element.longremarks }}</span>
+                  </div>
+                </template>
+              </draggable>
+            </div>
           </el-collapse-item>
-        </el-collapse-item>
+        </div>
       </el-collapse-item>
     </el-collapse>
   </div>
 
-
-    <div class="msg">{{ state.message }}</div>
-    <div class="itxst"></div>
+  <div class="msg">{{ state.message }}</div>
+  <div class="itxst"></div>
 </template>
 <script lang="ts">
-import {ref, reactive} from "vue";
+import { ref, reactive } from "vue";
 //导入draggable组件
 import draggable from "vuedraggable";
 export default {
-  methods:{
-    changeMethod(n:number){
-      alert(n);
-      this.percentage=n;
-    }
+  data() {
+    return {
+      // secmenu是第二級菜单，即计算机科学与技术下面的模块：
+      // 如果有table则代表，下面没有目录分支，直接是课程或课程说明。
+      // 再往下thirdmenu是第三级菜单，这里的都要包含parent，指向上一级的id
+      // 同样的，如果没有再往下的分支，就多一个table，代表课程信息。
+      secmenu: [
+        { title: "通识公共课", id: 1 },
+        { title: "通识选修课", id: 2 },
+        { title: "学科基础课", id: 3 },
+        { title: "专业课", id: 4 },
+        { title: "交叉与个性发展学分", id: 5 },
+        { title: "实践教学环节", id: 6 },
+        {
+          title: "课外教育项目",
+          id: 7,
+          table: [
+            {
+              normal: false,
+              longremarks:
+                "必须获得2学分的创业教育学分，学生可以在创业教育选修课中修读。",
+              id: 8,
+            },
+          ],
+        },
+      ],
+      thirdmenu: [
+        { title: "通识必修", parent: 1, id: 1 },
+        { title: "通识选修", parent: 1, id: 2 },
+        { title: "通识选修", parent: 2, id: 3 },
+        {
+          title: "学科必修",
+          parent: 3,
+          id: 4,
+          table: [
+            {
+              normal: true,
+              coursecode: "课程代码",
+              coursename: "课程名称",
+              courseenglishname: "课程英文名称",
+              credit: "学分",
+              totalhours: "总学时",
+              teachhours: "讲授",
+              pratice: "课程实践",
+              experiment: "实验",
+              cinclass: "课内上机",
+              coutclass: "课外上机",
+              semester: "开课学期",
+              assessment: "考核方式",
+              time: "起始周",
+              remarks: "备注",
+              id: 0,
+              disabledMove: true,
+              disabledPark: true,
+            },
+            {
+              normal: true,
+              coursecode: "B0501690",
+              coursename: "网络安全原理与实践",
+              courseenglishname: "Network Security Principles and Practices",
+              credit: "3.0",
+              totalhours: 48,
+              teachhours: 32,
+              pratice: 0,
+              experiment: 16,
+              cinclass: 0,
+              coutclass: 16,
+              semester: 6,
+              assessment: "Y",
+              time: "01-16",
+              remarks: "",
+              id: 5,
+            },
+            {
+              normal: true,
+              coursecode: "B050737s",
+              coursename: "数据挖掘",
+              courseenglishname: "Data Mining",
+              credit: "3.0",
+              totalhours: 48,
+              teachhours: 36,
+              pratice: 0,
+              experiment: 0,
+              cinclass: 12,
+              coutclass: 12,
+              semester: 5,
+              assessment: "C",
+              time: "01-16",
+              remarks: "双语",
+              id: 6,
+            },
+            {
+              normal: true,
+              coursecode: "S0501721",
+              coursename: "软件开发实践1",
+              courseenglishname: "Software Development Practice 1",
+              credit: "1.0",
+              totalhours: "2周",
+              teachhours: 0,
+              pratice: 0,
+              experiment: 0,
+              cinclass: 32,
+              coutclass: 0,
+              semester: 2,
+              assessment: "C",
+              time: "短学期",
+              remarks: "",
+              id: 7,
+            },
+          ],
+        },
+        { title: "专业必修", parent: 4, id: 5 },
+        { title: "专业选修", parent: 4, id: 6 },
+        { title: "选修", parent: 5, id: 7 },
+        { title: "实践必修", parent: 6, id: 8 },
+      ],
+      forthmenu: [
+        {
+          title: "计算机系统模块",
+          parent: 6,
+          id: 1,
+          table: [
+            {
+              normal: true,
+              coursecode: "课程代码",
+              coursename: "课程名称",
+              courseenglishname: "课程英文名称",
+              credit: "学分",
+              totalhours: "总学时",
+              teachhours: "讲授",
+              pratice: "课程实践",
+              experiment: "实验",
+              cinclass: "课内上机",
+              coutclass: "课外上机",
+              semester: "开课学期",
+              assessment: "考核方式",
+              time: "起始周",
+              remarks: "备注",
+              id: 0,
+              disabledMove: true,
+              disabledPark: true,
+            },
+            {
+              normal: true,
+              coursecode: "A0507980",
+              coursename: "数字电路设计",
+              courseenglishname: "Digital Circuits Design",
+              credit: "3.0",
+              totalhours: 48,
+              teachhours: 48,
+              pratice: 0,
+              experiment: 0,
+              cinclass: 0,
+              coutclass: 0,
+              semester: 3,
+              assessment: "X",
+              time: "01-16",
+              remarks: "",
+              id: 1,
+            },
+            {
+              normal: true,
+              coursecode: "A0401140",
+              coursename: "电路与电子学",
+              courseenglishname: "Circuits and Electronics",
+              credit: "3.0",
+              totalhours: 48,
+              teachhours: 48,
+              pratice: 0,
+              experiment: 0,
+              cinclass: 0,
+              coutclass: 0,
+              semester: 3,
+              assessment: "X",
+              time: "01-16",
+              remarks: "",
+              id: 2,
+            },
+            {
+              normal: true,
+              coursecode: "A0500950",
+              coursename: "数据结构（甲）",
+              courseenglishname: "Data Structure (A)",
+              credit: "4.0",
+              totalhours: 64,
+              teachhours: 64,
+              pratice: 0,
+              experiment: 0,
+              cinclass: 0,
+              coutclass: 0,
+              semester: 3,
+              assessment: "X",
+              time: "01-16",
+              remarks: "",
+              id: 3,
+            },
+            {
+              normal: true,
+              coursecode: "A0507050",
+              coursename: "操作系统（甲）",
+              courseenglishname: "Operating System(A)",
+              credit: "4.0",
+              totalhours: 64,
+              teachhours: 64,
+              pratice: 0,
+              experiment: 0,
+              cinclass: 0,
+              coutclass: 0,
+              semester: 3,
+              assessment: "X",
+              time: "01-16",
+              remarks: "",
+              id: 4,
+            },
+          ],
+        },
+        { title: "物联网工程模块", parent: 6, id: 2 },
+        { title: "人工智能模块", parent: 6, id: 3 },
+        { title: "数据科学模块", parent: 6, id: 4 },
+        { title: "网络安全模块", parent: 6, id: 5 },
+        { title: "公共模块", parent: 6, id: 6 },
+      ],
+    };
   },
-  components:{
+  methods: {
+    changeMethod(n: number) {
+      alert(n);
+    },
+    mkson(name: string) {},
+  },
+  components: {
     draggable,
   },
-  setup(){
-    
+  setup() {
+    let percentage = ref(88);
+    const cacuAllTime = () => (console.log("ok"), (percentage.value = 100));
 
-let percentage = ref(88)
-const cacuAllTime = () => (
-  console.log('ok'),
-  percentage.value=100
-)
+    const state = reactive({
+      groupA: {
+        name: "itxst",
+        put: true, //允许拖入
+        pull: true,
+      },
+      groupB: {
+        name: "itxst",
+        put: true, //允许拖入
+        pull: true,
+      },
+      groupC: {
+        name: "itxst",
+        put: true, //允许拖入
+        pull: true,
+      },
+      modules: {
+        arr3: [
+          {
+            normal: false,
+            longremarks:
+              "必须获得2学分的创业教育学分，学生可以在创业教育选修课中修读。",
+            id: 8,
+          },
+        ],
+      },
+    });
 
-const state = reactive({
-  groupA: {
-    name: "itxst",
-    put: true, //允许拖入
-    pull: true,
-  },
-  groupB: {
-    name: "itxst",
-    put: true, //允许拖入
-    pull: true,
-  },
-  groupC: {
-    name: "itxst",
-    put: true, //允许拖入
-    pull: true,
-  },
-  modules: {
-    arr1: [
-      {
-        normal: true,
-        coursecode: "课程代码",
-        coursename: "课程名称",
-        courseenglishname: "课程英文名称",
-        credit: "学分",
-        totalhours: "总学时",
-        teachhours: "讲授",
-        pratice: "课程实践",
-        experiment: "实验",
-        cinclass: "课内上机",
-        coutclass: "课外上机",
-        semester: "开课学期",
-        assessment: "考核方式",
-        time: "起始周",
-        remarks: "备注",
-        id: 0,
-        disabledMove: true,
-        disabledPark: true 
-      },
-      {
-        normal: true,
-        coursecode: "A0507980",
-        coursename: "数字电路设计",
-        courseenglishname: "Digital Circuits Design",
-        credit: "3.0",
-        totalhours: 48,
-        teachhours: 48,
-        pratice: 0,
-        experiment: 0,
-        cinclass: 0,
-        coutclass: 0,
-        semester: 3,
-        assessment: "X",
-        time: "01-16",
-        remarks: "",
-        id: 1,
-      },
-      {
-        normal: true,
-        coursecode: "A0401140",
-        coursename: "电路与电子学",
-        courseenglishname: "Circuits and Electronics",
-        credit: "3.0",
-        totalhours: 48,
-        teachhours: 48,
-        pratice: 0,
-        experiment: 0,
-        cinclass: 0,
-        coutclass: 0,
-        semester: 3,
-        assessment: "X",
-        time: "01-16",
-        remarks: "",
-        id: 2,
-      },
-      {
-        normal: true,
-        coursecode: "A0500950",
-        coursename: "数据结构（甲）",
-        courseenglishname: "Data Structure (A)",
-        credit: "4.0",
-        totalhours: 64,
-        teachhours: 64,
-        pratice: 0,
-        experiment: 0,
-        cinclass: 0,
-        coutclass: 0,
-        semester: 3,
-        assessment: "X",
-        time: "01-16",
-        remarks: "",
-        id: 3,
-      },
-      {
-        normal: true,
-        coursecode: "A0507050",
-        coursename: "操作系统（甲）",
-        courseenglishname: "Operating System(A)",
-        credit: "4.0",
-        totalhours: 64,
-        teachhours: 64,
-        pratice: 0,
-        experiment: 0,
-        cinclass: 0,
-        coutclass: 0,
-        semester: 3,
-        assessment: "X",
-        time: "01-16",
-        remarks: "",
-        id: 4,
-      },
-    ],
-    arr2: [
-    {
-        normal: true,
-        coursecode: "课程代码",
-        coursename: "课程名称",
-        courseenglishname: "课程英文名称",
-        credit: "学分",
-        totalhours: "总学时",
-        teachhours: "讲授",
-        pratice: "课程实践",
-        experiment: "实验",
-        cinclass: "课内上机",
-        coutclass: "课外上机",
-        semester: "开课学期",
-        assessment: "考核方式",
-        time: "起始周",
-        remarks: "备注",
-        id: 0,
-        disabledMove: true,
-        disabledPark: true 
-      },
-      {
-        normal: true,
-        coursecode: "B0501690",
-        coursename: "网络安全原理与实践",
-        courseenglishname: "Network Security Principles and Practices",
-        credit: "3.0",
-        totalhours: 48,
-        teachhours: 32,
-        pratice: 0,
-        experiment: 16,
-        cinclass: 0,
-        coutclass: 16,
-        semester: 6,
-        assessment: "Y",
-        time: "01-16",
-        remarks: "",
-        id: 5,
-      },
-      {
-        normal: true,
-        coursecode: "B050737s",
-        coursename: "数据挖掘",
-        courseenglishname: "Data Mining",
-        credit: "3.0",
-        totalhours: 48,
-        teachhours: 36,
-        pratice: 0,
-        experiment: 0,
-        cinclass: 12,
-        coutclass: 12,
-        semester: 5,
-        assessment: "C",
-        time: "01-16",
-        remarks: "双语",
-        id: 6,
-      },
-      {
-        normal: true,
-        coursecode: "S0501721",
-        coursename: "软件开发实践1",
-        courseenglishname: "Software Development Practice 1",
-        credit: "1.0",
-        totalhours: "2周",
-        teachhours: 0,
-        pratice: 0,
-        experiment: 0,
-        cinclass: 32,
-        coutclass: 0,
-        semester: 2,
-        assessment: "C",
-        time: "短学期",
-        remarks: "",
-        id: 7,
-      },
-    ],
-    arr3: [
-      {
-        normal: false,
-        longremarks:
-          "必须获得2学分的创业教育学分，学生可以在创业教育选修课中修读。",
-        id: 8,
-      },
-    ],
-  },
-});
+    //拖拽开始的事件
+    const onStart = () => {
+      console.log("开始拖拽");
+    };
 
-//拖拽开始的事件
-const onStart = () => {
-    console.log("开始拖拽");
-    this.onEnd();
+    //拖拽结束的事件
+    const onEnd = () => {
+      console.log("结束拖拽");
+    };
+
+    const onMove = (e, originalEvent) => {
+      //不允许停靠
+      if (e.relatedContext.element.disabledPark == true) return false;
+
+      return true;
+    };
+    return {
+      onStart,
+      onEnd,
+      onMove,
+      percentage,
+      cacuAllTime,
+      state,
+    };
+  },
 };
-
-//拖拽结束的事件
-const onEnd = () => {
-    console.log("结束拖拽");
-};
-
-const onMove = (e, originalEvent) => {
-    //不允许停靠
-    if (e.relatedContext.element.disabledPark == true) return false;
-
-    return true;
-};
-return{
-  onStart,
-  onEnd,
-  onMove,
-  percentage,
-  cacuAllTime,
-  state,
-
-}
-  }
-}
-
 </script>
-
 
 <style>
 body {
-    padding: 0px;
-    margin: 0px;
-    background-color: #f1f1f1;
+  padding: 0px;
+  margin: 0px;
+  background-color: #f1f1f1;
 }
 
 .msg {
-    padding: 10px 20px 0px 20px;
+  padding: 10px 20px 0px 20px;
 }
 
 .itxst {
-    background-color: #f1f1f1;
-    display: flex;
-    padding: 20px;
+  background-color: #f1f1f1;
+  display: flex;
+  padding: 20px;
 }
 
 .group {
@@ -493,12 +590,12 @@ body {
 }
 
 .item > label {
-    padding: 6px 10px;
-    color: #333;
+  padding: 6px 10px;
+  color: #333;
 }
 
 .item > label:hover {
-    cursor: move;
+  cursor: move;
 }
 
 .item > span {
@@ -507,16 +604,16 @@ body {
 }
 
 .ghost {
-    border: solid 1px rgb(19, 41, 239) !important;
+  border: solid 1px rgb(19, 41, 239) !important;
 }
 
 .chosenClass {
-    opacity: 1;
-    border: solid 1px red;
+  opacity: 1;
+  border: solid 1px red;
 }
 
 .fallbackClass {
-    background-color: aquamarine;
+  background-color: aquamarine;
 }
 
 .demo-progress .el-progress--line {
@@ -524,19 +621,19 @@ body {
   width: 350px;
 }
 .l1 {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .l2 {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .l3 {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 .l4 {
-    margin-left: 40px;
+  margin-left: 40px;
 }
 .coursename {
   width: 150px;
@@ -560,7 +657,6 @@ body {
   text-align: center;
   display: inline-block;
 }
-
 
 .totalhours {
   width: 30px;
@@ -587,5 +683,13 @@ label.move {
   display: inline-block;
   margin-left: 10px;
   margin-top: 8px;
+}
+.mkson {
+  position: absolute;
+  right: 80px;
+}
+.mkbro {
+  position: absolute;
+  right: 200px;
 }
 </style>
