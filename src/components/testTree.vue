@@ -20,6 +20,23 @@
     <el-input type="text" />
   </el-col>
 
+  <el-popover placement="right" :width="400" trigger="click">
+      <template #reference>
+        <el-button style="margin-right: 16px">Click to activate</el-button>
+      </template>
+      <div style="margin-top:3px"><span class="neat">学分</span><el-input-number v-model="num" :min="1" :max="8" /></div>
+      <div style="margin-top:3px"><span  class="neat">总学时</span><el-input-number v-model="num" :min="16" :max="64" :step="16" /></div>
+      <div style="margin-top:3px"><span  class="neat">讲授</span><el-input-number v-model="num"  /> </div>
+      <div style="margin-top:3px"><span  class="neat">课程实践</span><el-input-number v-model="num"  /></div>
+      <div style="margin-top:3px"><span  class="neat">实验</span><el-input-number v-model="num"  /></div>
+      <div style="margin-top:3px"><span  class="neat">课内上机</span><el-input-number v-model="num"  /></div>
+      <div style="margin-top:3px"><span  class="neat">课外上机</span><el-input-number v-model="num"  /> </div>
+      <div style="margin-top:3px"><span  class="neat">开课学期</span><el-input-number v-model="num" :min="1" :max="8" /><!--多选 --></div>
+        <div style="margin-top:3px"><span  class="neat">考核方式</span><el-input-number v-model="num" :step="2" /></div>
+        <div style="margin-top:3px"><span  class="neat">起始周</span><el-input-number v-model="num" :step="2" /></div>
+        <el-button style="margin-left:260px">确定</el-button>
+    </el-popover>
+
   
 </template>
 
@@ -28,6 +45,8 @@ import { ref } from "vue";
 export default {
   data() {
     return {
+      iii:"学分，总学时，讲授，课程实践，实验，课内上机，课外上机，开课学期，考核方式，起始周",
+      num:12,
       allpf: [
         { name: "计算机科学与技术", id: 1 },
         { name: "软件工程", id: 2 },
@@ -37,6 +56,28 @@ export default {
     };
   },
   setup() {
+    const gridData = [
+  {
+    date: '2016-05-02',
+    name: 'Jack',
+    address: 'New York City',
+  },
+  {
+    date: '2016-05-04',
+    name: 'Jack',
+    address: 'New York City',
+  },
+  {
+    date: '2016-05-01',
+    name: 'Jack',
+    address: 'New York City',
+  },
+  {
+    date: '2016-05-03',
+    name: 'Jack',
+    address: 'New York City',
+  },
+]
     const activeIndex = ref("1");
     const handleSelect = (key: string, keyPath: string[]) => {
       console.log(key, keyPath);
@@ -46,6 +87,10 @@ export default {
 </script>
 
 <style>
+  .neat {
+    width:80px;
+    display: inline-block;
+  }
 .flex-grow {
   flex-grow: 1;
 }
