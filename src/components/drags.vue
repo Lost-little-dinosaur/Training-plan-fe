@@ -77,235 +77,249 @@
                         :fallback-tolerance="50"
                         :move="onMove"
                       >
-                      <template #item="{ element }">
-                      <div
-                        :class="
-                          element.disabledMove
-                            ? 'forbid item move'
-                            : 'item move'
-                        "
-                        v-if="element.normal"
-                      >
-                        <label class="move coursecode">
-                          <span v-if="element.editable">{{
-                            element.coursecode
-                          }}</span>
-                          <el-input
-                            style="font-size: small"
-                            type="text"
-                            v-model="element.coursecode"
-                            v-else
-                          />
-                        </label>
-                        <el-divider direction="vertical" />
-                        <label class="coursename"
-                          ><span v-if="element.editable">{{
-                            element.coursename
-                          }}</span>
-                          <el-input
-                            type="text"
-                            v-model="element.coursename"
-                            v-else
-                          />
-                        </label>
-                        <el-divider direction="vertical" />
-                        <label class="courseenglishname"
-                          ><span v-if="element.editable">{{
-                            element.courseenglishname
-                          }}</span>
-                          <el-input
-                            type="text"
-                            v-model="element.courseenglishname"
-                            v-else
-                        /></label>
-
-                        <div v-if="element.editable">
-                          <el-divider direction="vertical" />
-                          <label class="credit">{{ element.credit }} </label>
-                          <el-divider direction="vertical" />
-                          <label
-                            class="totalhours"
-                            :class="{ totalhourslabel: element.disabledMove }"
-                            ><span v-if="element.editable">{{
-                              element.totalhours
-                            }}</span>
-                          </label>
-                          <el-divider direction="vertical" />
-                          <label class="teachhours">{{
-                            element.teachhours
-                          }}</label>
-                          <el-divider direction="vertical" />
-                          <label
-                            class="pratice"
-                            :class="{ praticelabel: element.disabledMove }"
-                            >{{ element.pratice }}</label
+                        <template #item="{ element }">
+                          <div
+                            :class="
+                              element.disabledMove
+                                ? 'forbid item move'
+                                : 'item move'
+                            "
+                            v-if="element.normal"
                           >
-                          <el-divider direction="vertical" />
-                          <label class="experiment">{{
-                            element.experiment
-                          }}</label>
-                          <el-divider direction="vertical" />
-                          <label
-                            class="cinclass"
-                            :class="{ cinclasslabel: element.disabledMove }"
-                            >{{ element.cinclass }}</label
-                          >
-                          <el-divider direction="vertical" />
-                          <label
-                            class="coutclass"
-                            :class="{ coutclasslabel: element.disabledMove }"
-                            >{{ element.coutclass }}</label
-                          >
-                          <el-divider direction="vertical" />
-                          <label
-                            class="semester"
-                            :class="{ semesterlabel: element.disabledMove }"
-                            >{{ element.semester }}</label
-                          >
-                          <el-divider direction="vertical" />
-                          <label
-                            class="assessment"
-                            :class="{ assessmentlabel: element.disabledMove }"
-                            >{{ element.assessment }}</label
-                          >
-                        </div>
-                        <el-popover
-                          placement="right"
-                          :width="400"
-                          trigger="click"
-                          @hide="editok()"
-                          v-else
-                        >
-                          <template #reference>
-                            <el-button class="openedit"
-                              >打开/关闭面板</el-button
-                            >
-                          </template>
-                          <div style="margin-top: 3px">
-                            <span class="neat">学分</span
-                            ><el-input-number
-                              v-model="element.credit"
-                              :min="1"
-                              :max="8"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">总学时</span
-                            ><el-input-number
-                              v-model="element.totalhours"
-                              :min="16"
-                              :max="64"
-                              :step="16"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">讲授</span
-                            ><el-input-number v-model="element.teachhours" />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">课程实践</span
-                            ><el-input-number
-                              v-model="element.pratice"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">实验</span
-                            ><el-input-number
-                              v-model="element.experiment"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">课内上机</span
-                            ><el-input-number
-                              v-model="element.cinclass"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">课外上机</span
-                            ><el-input-number
-                              v-model="element.coutclass"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">开课学期</span
-                            ><el-input-number
-                              v-model="element.semester"
-                              :min="1"
-                              :max="8"
-                            /><!--多选 -->
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">考核方式</span>
-                            <el-select
-                              v-model="element.assessment"
-                              class="m-2"
-                              placeholder="Select"
-                              size="small"
-                            >
-                              <el-option
-                                v-for="item in assessway"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
+                            <label class="move coursecode">
+                              <span v-if="element.editable">{{
+                                element.coursecode
+                              }}</span>
+                              <el-input
+                                style="font-size: small"
+                                type="text"
+                                v-model="element.coursecode"
+                                v-else
                               />
-                            </el-select>
+                            </label>
+                            <el-divider direction="vertical" />
+                            <label class="coursename"
+                              ><span v-if="element.editable">{{
+                                element.coursename
+                              }}</span>
+                              <el-input
+                                type="text"
+                                v-model="element.coursename"
+                                v-else
+                              />
+                            </label>
+                            <el-divider direction="vertical" />
+                            <label class="courseenglishname"
+                              ><span v-if="element.editable">{{
+                                element.courseenglishname
+                              }}</span>
+                              <el-input
+                                type="text"
+                                v-model="element.courseenglishname"
+                                v-else
+                            /></label>
+
+                            <div v-if="element.editable">
+                              <el-divider direction="vertical" />
+                              <label class="credit"
+                                >{{ element.credit }}
+                              </label>
+                              <el-divider direction="vertical" />
+                              <label
+                                class="totalhours"
+                                :class="{
+                                  totalhourslabel: element.disabledMove,
+                                }"
+                                ><span v-if="element.editable">{{
+                                  element.totalhours
+                                }}</span>
+                              </label>
+                              <el-divider direction="vertical" />
+                              <label class="teachhours">{{
+                                element.teachhours
+                              }}</label>
+                              <el-divider direction="vertical" />
+                              <label
+                                class="pratice"
+                                :class="{ praticelabel: element.disabledMove }"
+                                >{{ element.pratice }}</label
+                              >
+                              <el-divider direction="vertical" />
+                              <label class="experiment">{{
+                                element.experiment
+                              }}</label>
+                              <el-divider direction="vertical" />
+                              <label
+                                class="cinclass"
+                                :class="{ cinclasslabel: element.disabledMove }"
+                                >{{ element.cinclass }}</label
+                              >
+                              <el-divider direction="vertical" />
+                              <label
+                                class="coutclass"
+                                :class="{
+                                  coutclasslabel: element.disabledMove,
+                                }"
+                                >{{ element.coutclass }}</label
+                              >
+                              <el-divider direction="vertical" />
+                              <label
+                                class="semester"
+                                :class="{ semesterlabel: element.disabledMove }"
+                                >{{ element.semester }}</label
+                              >
+                              <el-divider direction="vertical" />
+                              <label
+                                class="assessment"
+                                :class="{
+                                  assessmentlabel: element.disabledMove,
+                                }"
+                                >{{ element.assessment }}</label
+                              >
+                            </div>
+                            <el-popover
+                              placement="right"
+                              :width="400"
+                              trigger="click"
+                              @hide="editok()"
+                              v-else
+                            >
+                              <template #reference>
+                                <el-button class="openedit"
+                                  >打开/关闭面板</el-button
+                                >
+                              </template>
+                              <div style="margin-top: 3px">
+                                <span class="neat">学分</span
+                                ><el-input-number
+                                  v-model="element.credit"
+                                  :min="1"
+                                  :max="8"
+                                />
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">总学时</span
+                                ><el-input-number
+                                  v-model="element.totalhours"
+                                  :min="16"
+                                  :max="64"
+                                  :step="16"
+                                />
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">讲授</span
+                                ><el-input-number
+                                  v-model="element.teachhours"
+                                />
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">课程实践</span
+                                ><el-input-number
+                                  v-model="element.pratice"
+                                  :min="0"
+                                />
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">实验</span
+                                ><el-input-number
+                                  v-model="element.experiment"
+                                  :min="0"
+                                />
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">课内上机</span
+                                ><el-input-number
+                                  v-model="element.cinclass"
+                                  :min="0"
+                                />
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">课外上机</span
+                                ><el-input-number
+                                  v-model="element.coutclass"
+                                  :min="0"
+                                />
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">开课学期</span
+                                ><el-input-number
+                                  v-model="element.semester"
+                                  :min="1"
+                                  :max="8"
+                                /><!--多选 -->
+                              </div>
+                              <div style="margin-top: 3px">
+                                <span class="neat">考核方式</span>
+                                <el-select
+                                  v-model="element.assessment"
+                                  class="m-2"
+                                  placeholder="Select"
+                                  size="small"
+                                >
+                                  <el-option
+                                    v-for="item in assessway"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                  />
+                                </el-select>
+                              </div>
+                              <!-- <el-button style="margin-left: 260px">确定</el-button> -->
+                            </el-popover>
+                            <el-divider direction="vertical" />
+                            <label class="time"
+                              ><span v-if="element.editable">{{
+                                element.time
+                              }}</span>
+                              <el-input
+                                type="text"
+                                v-model="element.time"
+                                v-else
+                              />
+                            </label>
+                            <el-divider direction="vertical" />
+                            <label class="remarks"
+                              ><span v-if="element.editable">{{
+                                element.remarks
+                              }}</span>
+                              <el-input
+                                type="text"
+                                v-model="element.remarks"
+                                v-else
+                              />
+                            </label>
+                            <el-divider
+                              direction="vertical"
+                              v-if="!element.disabledMove"
+                            />
+                            <el-row
+                              ><el-button
+                                type="primary"
+                                size="small"
+                                :icon="Edit"
+                                circle
+                                v-if="!element.disabledMove"
+                                @click="editcourse2(item3.id, element.id)"
+                                style="margin-top: 10px"
+                            /></el-row>
+                            <el-divider
+                              direction="vertical"
+                              v-if="!element.editable"
+                            />
+                            <el-button
+                              class="mkson"
+                              v-if="!element.editable"
+                              @click="afteredit2(item3.id, element.id)"
+                              style="margin-top: 10px"
+                              >保存</el-button
+                            >
                           </div>
-                          <!-- <el-button style="margin-left: 260px">确定</el-button> -->
-                        </el-popover>
-                        <el-divider direction="vertical" />
-                        <label class="time"
-                          ><span v-if="element.editable">{{
-                            element.time
-                          }}</span>
-                          <el-input type="text" v-model="element.time" v-else />
-                        </label>
-                        <el-divider direction="vertical" />
-                        <label class="remarks"
-                          ><span v-if="element.editable">{{
-                            element.remarks
-                          }}</span>
-                          <el-input
-                            type="text"
-                            v-model="element.remarks"
-                            v-else
-                          />
-                        </label>
-                        <el-divider
-                          direction="vertical"
-                          v-if="!element.disabledMove"
-                        />
-                        <el-row
-                          ><el-button
-                            type="primary"
-                            size="small"
-                            :icon="Edit"
-                            circle
-                            v-if="!element.disabledMove"
-                            @click="editcourse2(item3.id, element.id)"
-                            style="margin-top:10px"
-                        /></el-row>
-                        <el-divider
-                          direction="vertical"
-                          v-if="!element.editable"
-                        />
-                        <el-button
-                          class="mkson"
-                          v-if="!element.editable"
-                          @click="afteredit2(item3.id, element.id)"
-                          style="margin-top:10px"
-                          >保存</el-button
-                        >
-                      </div>
-                      <div class="item move" v-else>
-                        <span class="longremarks">{{
-                          element.longremarks
-                        }}</span>
-                      </div>
-                    </template>
+                          <div class="item move" v-else>
+                            <span class="longremarks">{{
+                              element.longremarks
+                            }}</span>
+                          </div>
+                        </template>
                       </draggable>
                     </div>
                   </el-collapse-item>
@@ -537,7 +551,7 @@
                             circle
                             v-if="!element.disabledMove"
                             @click="editcourse(item2.id, element.id)"
-                            style="margin-top:10px"
+                            style="margin-top: 10px"
                         /></el-row>
                         <el-divider
                           direction="vertical"
@@ -547,7 +561,7 @@
                           class="mkson"
                           v-if="!element.editable"
                           @click="afteredit(item2.id, element.id)"
-                          style="margin-top:10px"
+                          style="margin-top: 10px"
                           >保存</el-button
                         >
                       </div>
@@ -579,235 +593,210 @@
                 :fallback-tolerance="50"
                 :move="onMove"
               >
-              <template #item="{ element }">
-                      <div
-                        :class="
-                          element.disabledMove
-                            ? 'forbid item move'
-                            : 'item move'
-                        "
-                        v-if="element.normal"
-                      >
-                        <label class="move coursecode">
-                          <span v-if="element.editable">{{
-                            element.coursecode
-                          }}</span>
-                          <el-input
-                            style="font-size: small"
-                            type="text"
-                            v-model="element.coursecode"
-                            v-else
-                          />
-                        </label>
-                        <el-divider direction="vertical" />
-                        <label class="coursename"
-                          ><span v-if="element.editable">{{
-                            element.coursename
-                          }}</span>
-                          <el-input
-                            type="text"
-                            v-model="element.coursename"
-                            v-else
-                          />
-                        </label>
-                        <el-divider direction="vertical" />
-                        <label class="courseenglishname"
-                          ><span v-if="element.editable">{{
-                            element.courseenglishname
-                          }}</span>
-                          <el-input
-                            type="text"
-                            v-model="element.courseenglishname"
-                            v-else
-                        /></label>
+                <template #item="{ element }">
+                  <div
+                    :class="
+                      element.disabledMove ? 'forbid item move' : 'item move'
+                    "
+                    v-if="element.normal"
+                  >
+                    <label class="move coursecode">
+                      <span v-if="element.editable">{{
+                        element.coursecode
+                      }}</span>
+                      <el-input
+                        style="font-size: small"
+                        type="text"
+                        v-model="element.coursecode"
+                        v-else
+                      />
+                    </label>
+                    <el-divider direction="vertical" />
+                    <label class="coursename"
+                      ><span v-if="element.editable">{{
+                        element.coursename
+                      }}</span>
+                      <el-input
+                        type="text"
+                        v-model="element.coursename"
+                        v-else
+                      />
+                    </label>
+                    <el-divider direction="vertical" />
+                    <label class="courseenglishname"
+                      ><span v-if="element.editable">{{
+                        element.courseenglishname
+                      }}</span>
+                      <el-input
+                        type="text"
+                        v-model="element.courseenglishname"
+                        v-else
+                    /></label>
 
-                        <div v-if="element.editable">
-                          <el-divider direction="vertical" />
-                          <label class="credit">{{ element.credit }} </label>
-                          <el-divider direction="vertical" />
-                          <label
-                            class="totalhours"
-                            :class="{ totalhourslabel: element.disabledMove }"
-                            ><span v-if="element.editable">{{
-                              element.totalhours
-                            }}</span>
-                          </label>
-                          <el-divider direction="vertical" />
-                          <label class="teachhours">{{
-                            element.teachhours
-                          }}</label>
-                          <el-divider direction="vertical" />
-                          <label
-                            class="pratice"
-                            :class="{ praticelabel: element.disabledMove }"
-                            >{{ element.pratice }}</label
-                          >
-                          <el-divider direction="vertical" />
-                          <label class="experiment">{{
-                            element.experiment
-                          }}</label>
-                          <el-divider direction="vertical" />
-                          <label
-                            class="cinclass"
-                            :class="{ cinclasslabel: element.disabledMove }"
-                            >{{ element.cinclass }}</label
-                          >
-                          <el-divider direction="vertical" />
-                          <label
-                            class="coutclass"
-                            :class="{ coutclasslabel: element.disabledMove }"
-                            >{{ element.coutclass }}</label
-                          >
-                          <el-divider direction="vertical" />
-                          <label
-                            class="semester"
-                            :class="{ semesterlabel: element.disabledMove }"
-                            >{{ element.semester }}</label
-                          >
-                          <el-divider direction="vertical" />
-                          <label
-                            class="assessment"
-                            :class="{ assessmentlabel: element.disabledMove }"
-                            >{{ element.assessment }}</label
-                          >
-                        </div>
-                        <el-popover
-                          placement="right"
-                          :width="400"
-                          trigger="click"
-                          @hide="editok()"
-                          v-else
-                        >
-                          <template #reference>
-                            <el-button class="openedit"
-                              >打开/关闭面板</el-button
-                            >
-                          </template>
-                          <div style="margin-top: 3px">
-                            <span class="neat">学分</span
-                            ><el-input-number
-                              v-model="element.credit"
-                              :min="1"
-                              :max="8"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">总学时</span
-                            ><el-input-number
-                              v-model="element.totalhours"
-                              :min="16"
-                              :max="64"
-                              :step="16"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">讲授</span
-                            ><el-input-number v-model="element.teachhours" />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">课程实践</span
-                            ><el-input-number
-                              v-model="element.pratice"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">实验</span
-                            ><el-input-number
-                              v-model="element.experiment"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">课内上机</span
-                            ><el-input-number
-                              v-model="element.cinclass"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">课外上机</span
-                            ><el-input-number
-                              v-model="element.coutclass"
-                              :min="0"
-                            />
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">开课学期</span
-                            ><el-input-number
-                              v-model="element.semester"
-                              :min="1"
-                              :max="8"
-                            /><!--多选 -->
-                          </div>
-                          <div style="margin-top: 3px">
-                            <span class="neat">考核方式</span>
-                            <el-select
-                              v-model="element.assessment"
-                              class="m-2"
-                              placeholder="Select"
-                              size="small"
-                            >
-                              <el-option
-                                v-for="item in assessway"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                              />
-                            </el-select>
-                          </div>
-                          <!-- <el-button style="margin-left: 260px">确定</el-button> -->
-                        </el-popover>
-                        <el-divider direction="vertical" />
-                        <label class="time"
-                          ><span v-if="element.editable">{{
-                            element.time
-                          }}</span>
-                          <el-input type="text" v-model="element.time" v-else />
-                        </label>
-                        <el-divider direction="vertical" />
-                        <label class="remarks"
-                          ><span v-if="element.editable">{{
-                            element.remarks
-                          }}</span>
-                          <el-input
-                            type="text"
-                            v-model="element.remarks"
-                            v-else
-                          />
-                        </label>
-                        <el-divider
-                          direction="vertical"
-                          v-if="!element.disabledMove"
-                        />
-                        <el-row
-                          ><el-button
-                            type="primary"
-                            size="small"
-                            :icon="Edit"
-                            circle
-                            v-if="!element.disabledMove"
-                            @click="editcourse1(item1.id, element.id)"
-                            style="margin-top:10px"
-                        /></el-row>
-                        <el-divider
-                          direction="vertical"
-                          v-if="!element.editable"
-                        />
-                        <el-button
-                          class="mkson"
-                          v-if="!element.editable"
-                          @click="afteredit1(item1.id, element.id)"
-                          style="margin-top:10px"
-                          >保存</el-button
-                        >
-                      </div>
-                      <div class="item move" v-else>
-                        <span class="longremarks">{{
-                          element.longremarks
+                    <div v-if="element.editable">
+                      <el-divider direction="vertical" />
+                      <label class="credit">{{ element.credit }} </label>
+                      <el-divider direction="vertical" />
+                      <label
+                        class="totalhours"
+                        :class="{ totalhourslabel: element.disabledMove }"
+                        ><span v-if="element.editable">{{
+                          element.totalhours
                         }}</span>
+                      </label>
+                      <el-divider direction="vertical" />
+                      <label class="teachhours">{{ element.teachhours }}</label>
+                      <el-divider direction="vertical" />
+                      <label
+                        class="pratice"
+                        :class="{ praticelabel: element.disabledMove }"
+                        >{{ element.pratice }}</label
+                      >
+                      <el-divider direction="vertical" />
+                      <label class="experiment">{{ element.experiment }}</label>
+                      <el-divider direction="vertical" />
+                      <label
+                        class="cinclass"
+                        :class="{ cinclasslabel: element.disabledMove }"
+                        >{{ element.cinclass }}</label
+                      >
+                      <el-divider direction="vertical" />
+                      <label
+                        class="coutclass"
+                        :class="{ coutclasslabel: element.disabledMove }"
+                        >{{ element.coutclass }}</label
+                      >
+                      <el-divider direction="vertical" />
+                      <label
+                        class="semester"
+                        :class="{ semesterlabel: element.disabledMove }"
+                        >{{ element.semester }}</label
+                      >
+                      <el-divider direction="vertical" />
+                      <label
+                        class="assessment"
+                        :class="{ assessmentlabel: element.disabledMove }"
+                        >{{ element.assessment }}</label
+                      >
+                    </div>
+                    <el-popover
+                      placement="right"
+                      :width="400"
+                      trigger="click"
+                      @hide="editok()"
+                      v-else
+                    >
+                      <template #reference>
+                        <el-button class="openedit">打开/关闭面板</el-button>
+                      </template>
+                      <div style="margin-top: 3px">
+                        <span class="neat">学分</span
+                        ><el-input-number
+                          v-model="element.credit"
+                          :min="1"
+                          :max="8"
+                        />
                       </div>
-                    </template>
+                      <div style="margin-top: 3px">
+                        <span class="neat">总学时</span
+                        ><el-input-number
+                          v-model="element.totalhours"
+                          :min="16"
+                          :max="64"
+                          :step="16"
+                        />
+                      </div>
+                      <div style="margin-top: 3px">
+                        <span class="neat">讲授</span
+                        ><el-input-number v-model="element.teachhours" />
+                      </div>
+                      <div style="margin-top: 3px">
+                        <span class="neat">课程实践</span
+                        ><el-input-number v-model="element.pratice" :min="0" />
+                      </div>
+                      <div style="margin-top: 3px">
+                        <span class="neat">实验</span
+                        ><el-input-number
+                          v-model="element.experiment"
+                          :min="0"
+                        />
+                      </div>
+                      <div style="margin-top: 3px">
+                        <span class="neat">课内上机</span
+                        ><el-input-number v-model="element.cinclass" :min="0" />
+                      </div>
+                      <div style="margin-top: 3px">
+                        <span class="neat">课外上机</span
+                        ><el-input-number
+                          v-model="element.coutclass"
+                          :min="0"
+                        />
+                      </div>
+                      <div style="margin-top: 3px">
+                        <span class="neat">开课学期</span
+                        ><el-input-number
+                          v-model="element.semester"
+                          :min="1"
+                          :max="8"
+                        /><!--多选 -->
+                      </div>
+                      <div style="margin-top: 3px">
+                        <span class="neat">考核方式</span>
+                        <el-select
+                          v-model="element.assessment"
+                          class="m-2"
+                          placeholder="Select"
+                          size="small"
+                        >
+                          <el-option
+                            v-for="item in assessway"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          />
+                        </el-select>
+                      </div>
+                      <!-- <el-button style="margin-left: 260px">确定</el-button> -->
+                    </el-popover>
+                    <el-divider direction="vertical" />
+                    <label class="time"
+                      ><span v-if="element.editable">{{ element.time }}</span>
+                      <el-input type="text" v-model="element.time" v-else />
+                    </label>
+                    <el-divider direction="vertical" />
+                    <label class="remarks"
+                      ><span v-if="element.editable">{{
+                        element.remarks
+                      }}</span>
+                      <el-input type="text" v-model="element.remarks" v-else />
+                    </label>
+                    <el-divider
+                      direction="vertical"
+                      v-if="!element.disabledMove"
+                    />
+                    <el-row
+                      ><el-button
+                        type="primary"
+                        size="small"
+                        :icon="Edit"
+                        circle
+                        v-if="!element.disabledMove"
+                        @click="editcourse1(item1.id, element.id)"
+                        style="margin-top: 10px"
+                    /></el-row>
+                    <el-divider direction="vertical" v-if="!element.editable" />
+                    <el-button
+                      class="mkson"
+                      v-if="!element.editable"
+                      @click="afteredit1(item1.id, element.id)"
+                      style="margin-top: 10px"
+                      >保存</el-button
+                    >
+                  </div>
+                  <div class="item move" v-else>
+                    <span class="longremarks">{{ element.longremarks }}</span>
+                  </div>
+                </template>
               </draggable>
             </div>
           </el-collapse-item>
@@ -857,10 +846,10 @@ export default defineComponent({
       // 同样的，如果没有再往下的分支，就多一个table，代表课程信息。
       secmenu: [
         { title: "通识公共课", id: 1, table: [] as any[] },
-//         never类型是任何类型的子类型，也可以赋值给任何类型；
-// 然而，没有类型是never的子类型或可以赋值给never类型（除了never本身之外）。
-//  即使 any也不可以赋值给never。
-// 你把一个String类型的值，赋值给了Never类型的变量。
+        //         never类型是任何类型的子类型，也可以赋值给任何类型；
+        // 然而，没有类型是never的子类型或可以赋值给never类型（除了never本身之外）。
+        //  即使 any也不可以赋值给never。
+        // 你把一个String类型的值，赋值给了Never类型的变量。
         { title: "通识选修课", id: 2, table: [] },
         { title: "学科基础课", id: 3, table: [] },
         { title: "专业课", id: 4, table: [] },
@@ -870,7 +859,7 @@ export default defineComponent({
           title: "课外教育项目",
           id: 7,
           table: [
-          {
+            {
               editable: true,
               normal: true,
               coursecode: "课程代码",
@@ -900,7 +889,7 @@ export default defineComponent({
           ],
         },
       ],
-      
+
       thirdmenu: [
         {
           title: "通识必修",
@@ -1176,11 +1165,11 @@ export default defineComponent({
             },
           ],
         },
-        { title: "物联网工程模块", parent: 6, id: 2 ,table:[]},
-        { title: "人工智能模块", parent: 6, id: 3 ,table:[]},
-        { title: "数据科学模块", parent: 6, id: 4 ,table:[]},
-        { title: "网络安全模块", parent: 6, id: 5 ,table:[]},
-        { title: "公共模块", parent: 6, id: 6 ,table:[]},
+        { title: "物联网工程模块", parent: 6, id: 2, table: [] },
+        { title: "人工智能模块", parent: 6, id: 3, table: [] },
+        { title: "数据科学模块", parent: 6, id: 4, table: [] },
+        { title: "网络安全模块", parent: 6, id: 5, table: [] },
+        { title: "公共模块", parent: 6, id: 6, table: [] },
       ],
     };
   },
@@ -1188,7 +1177,7 @@ export default defineComponent({
     draggable,
     Edit,
   },
-  setup(props:any) {
+  setup(props: any) {
     const activeIndex = ref("1");
     const handleSelect = (key: string, keyPath: string[]) => {
       console.log(key, keyPath);
@@ -1258,16 +1247,16 @@ export default defineComponent({
         message: `编辑生效`,
       });
     },
-    afteredit2(n:number,m:number) {
-      this.forthmenu[n-1].table[m].editable=true;
+    afteredit2(n: number, m: number) {
+      this.forthmenu[n - 1].table[m].editable = true;
       ElMessage({
         type: "success",
         message: `保存成功`,
       });
     },
-    afteredit1(n:number,m:number) {
-      console.log("Afteredit n is "+n+",m is "+m);
-      this.secmenu[n-1].table[m].editable=true;
+    afteredit1(n: number, m: number) {
+      console.log("Afteredit n is " + n + ",m is " + m);
+      this.secmenu[n - 1].table[m].editable = true;
       ElMessage({
         type: "success",
         message: `保存成功`,
@@ -1275,20 +1264,17 @@ export default defineComponent({
     },
     afteredit(n: number, m: number) {
       this.thirdmenu[n - 1].table[m].editable = true;
-      console.log("n is"+n+"m is "+m);
+      console.log("n is" + n + "m is " + m);
       ElMessage({
         type: "success",
         message: `保存成功`,
       });
     },
-    editcourse1(n:number,m:number) {
-      this.secmenu[n-1].table[m].editable =  false;
-
-
+    editcourse1(n: number, m: number) {
+      this.secmenu[n - 1].table[m].editable = false;
     },
-    editcourse2(n:number,m:number) {
-      this.forthmenu[n-1].table[m].editable = false;
-
+    editcourse2(n: number, m: number) {
+      this.forthmenu[n - 1].table[m].editable = false;
     },
     editcourse(n: number, m: number) {
       this.thirdmenu[n - 1].table[m].editable = false;
@@ -1369,7 +1355,7 @@ export default defineComponent({
             title: value,
             id: this.forthmenu.length,
             parent: prtid,
-            table:[]
+            table: [],
           });
 
           ElMessage({
@@ -1390,76 +1376,76 @@ export default defineComponent({
         message: "当前级别不允许再添加子节点",
       });
     },
-    addcourse4(index:number) {
+    addcourse4(index: number) {
       this.forthmenu[index - 1].table.push({
-              editable: false,
-              normal: true,
-              coursecode: " ",
-              coursename: " ",
-              courseenglishname: " ",
-              credit: " ",
-              totalhours: " ",
-              teachhours: " ",
-              pratice: " ",
-              experiment: " ",
-              cinclass: " ",
-              coutclass: " ",
-              semester: " ",
-              assessment: " ",
-              time: " ",
-              remarks: " ",
-              id: this.forthmenu[index-1].table.length,
-              disabledMove: false,
-              disabledPark: false,
-            });
+        editable: false,
+        normal: true,
+        coursecode: " ",
+        coursename: " ",
+        courseenglishname: " ",
+        credit: " ",
+        totalhours: " ",
+        teachhours: " ",
+        pratice: " ",
+        experiment: " ",
+        cinclass: " ",
+        coutclass: " ",
+        semester: " ",
+        assessment: " ",
+        time: " ",
+        remarks: " ",
+        id: this.forthmenu[index - 1].table.length,
+        disabledMove: false,
+        disabledPark: false,
+      });
     },
-    addcourse3(index:number) {
+    addcourse3(index: number) {
       this.thirdmenu[index - 1].table.push({
-              editable: false,
-              normal: true,
-              coursecode: " ",
-              coursename: " ",
-              courseenglishname: " ",
-              credit: " ",
-              totalhours: " ",
-              teachhours: " ",
-              pratice: " ",
-              experiment: " ",
-              cinclass: " ",
-              coutclass: " ",
-              semester: " ",
-              assessment: " ",
-              time: " ",
-              remarks: " ",
-              id: this.thirdmenu[index-1].table.length,
-              disabledMove: false,
-              disabledPark: false,
-            });
+        editable: false,
+        normal: true,
+        coursecode: " ",
+        coursename: " ",
+        courseenglishname: " ",
+        credit: " ",
+        totalhours: " ",
+        teachhours: " ",
+        pratice: " ",
+        experiment: " ",
+        cinclass: " ",
+        coutclass: " ",
+        semester: " ",
+        assessment: " ",
+        time: " ",
+        remarks: " ",
+        id: this.thirdmenu[index - 1].table.length,
+        disabledMove: false,
+        disabledPark: false,
+      });
     },
     addcourse2(index: number) {
-      alert('test')
+      alert("test");
       //对话框实现添加课程信息？？
       this.secmenu[index - 1].table.push({
-              editable: false,
-              normal: true,
-              coursecode: " ",
-              coursename: " ",
-              courseenglishname: " ",
-              credit: " ",
-              totalhours: " ",
-              teachhours: " ",
-              pratice: " ",
-              experiment: " ",
-              cinclass: " ",
-              coutclass: " ",
-              semester: " ",
-              assessment: " ",
-              time: " ",
-              remarks: " ",
-              id: this.secmenu[index-1].table.length,
-              disabledMove: false,
-              disabledPark: false,
-            });
+        editable: false,
+        normal: true,
+        coursecode: " ",
+        coursename: " ",
+        courseenglishname: " ",
+        credit: " ",
+        totalhours: " ",
+        teachhours: " ",
+        pratice: " ",
+        experiment: " ",
+        cinclass: " ",
+        coutclass: " ",
+        semester: " ",
+        assessment: " ",
+        time: " ",
+        remarks: " ",
+        id: this.secmenu[index - 1].table.length,
+        disabledMove: false,
+        disabledPark: false,
+      });
       //zhelizheli
     },
   },
@@ -1641,10 +1627,9 @@ label.move {
   font-size: small;
 }
 .el-select {
-  width:150px;
+  width: 150px;
   text-align: center;
 }
-.el-input__inner{
-  
+.el-input__inner {
 }
 </style>
