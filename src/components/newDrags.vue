@@ -1,37 +1,11 @@
 <template>
     <newDrag v-model:treeData="treeData"></newDrag>
     <el-button @click="testFunc">打印treeData查看是否被改变</el-button>
-    <!--    <div class="demo-collapse">-->
-    <!--        <el-collapse v-model="activeNames" @change="">-->
-    <!--            &lt;!&ndash;            <el-collapse-item title="Consistency" name="1">&ndash;&gt;-->
-    <!--            &lt;!&ndash;                <el-collapse-item title="Consistency" name="1.1">&ndash;&gt;-->
-
-    <!--            &lt;!&ndash;                </el-collapse-item>&ndash;&gt;-->
-    <!--            &lt;!&ndash;                <el-collapse-item title="Consistency" name="1.2">&ndash;&gt;-->
-
-    <!--            &lt;!&ndash;                </el-collapse-item>&ndash;&gt;-->
-    <!--            &lt;!&ndash;            </el-collapse-item>&ndash;&gt;-->
-    <!--            <el-collapse-item v-for="testData in testDataArr" :title="testData.name" :name="testData.id+'爷爷'"-->
-    <!--                              v-on:click.stop.prevent="handleGetDragChild(testData.id)">-->
-    <!--                <el-collapse-item name="1.2" v-for="test in testData.childArr"-->
-    <!--                                  v-on:click.stop.prevent="handleGetDragChild(test.id)" :title="test.name+'父亲'"-->
-    <!--                                  :name="test.id">-->
-    <!--                    <el-collapse-item name="1.2" v-for="tes in test.childArr"-->
-    <!--                                      v-on:click.stop.prevent="handleGetDragChild(tes.id)" :title="tes.name+'儿子'"-->
-    <!--                                      :name="tes.id">-->
-    <!--                        <el-collapse-item name="1.2" v-for="te in tes.childArr"-->
-    <!--                                          v-on:click.stop.prevent="handleGetDragChild(te.id)" :title="te.name+'孙子'"-->
-    <!--                                          :name="te.id">-->
-    <!--                        </el-collapse-item>-->
-    <!--                    </el-collapse-item>-->
-    <!--                </el-collapse-item>-->
-    <!--            </el-collapse-item>-->
-    <!--        </el-collapse>-->
-    <!--    </div>-->
 </template>
 
 <script>
 import {defineComponent} from 'vue'
+import {ElMessage} from 'element-plus'
 import {reactive, ref} from 'vue'
 import newDrag from "./newDrag";
 import request from "@/utils/request";
@@ -41,24 +15,60 @@ export default defineComponent({
         return {}
     },
     methods: {
-        testFunc(){
-            console.log(this.treeData);
-        },
-        getCaptcha() {
+        handleGetTreeData() {
             request({
-                url: '/base/captcha',
+                url: '/module',
                 method: 'get',
             }).then(res => {
-                this.captcha.id = res.data.data.id;
-                this.captcha.raw = res.data.data.raw;
-                // console.log(this.captcha);
-            }).catch(err => {
-                ElNotification({
-                    title: 'Error',
-                    message: err.message,
-                    type: 'error',
+                res.data.data.forEach(item => {
+                    if (item.mod_parent_id == null) {//如果是根节点，push到treeData中
+                        this.treeData.push({
+                            module_eid: item.module_eid,
+                            name: item.name,
+                            mod_parent_id: item.mod_parent_id,
+                            expect_score: item.expect_score,
+                            isCatalogue: true,
+                            childArr: []
+                        })
+                        //删除已经push到treeData中的节点
+                        res.data.data.splice(res.data.data.indexOf(item), 1)
+                    }
                 })
+                this.treeData = this.getChildTreeData(res.data.data, this.treeData)
+                ElMessage({
+                    message: '获取数据成功',
+                    type: 'success',
+                })
+            }).catch(err => {
+                const open4 = () => {
+                    ElMessage.error('获取数据失败，下面是报错信息：\n', err)
+                }
             })
+        },
+        getChildTreeData(tableData, treeData) {
+            //先遍历treeData,找到每个节点的子节点
+            treeData.forEach(item => {
+                tableData.forEach(item2 => {
+                    if (item.module_eid === item2.mod_parent_id) {
+                        item.childArr.push({
+                            module_eid: item2.module_eid,
+                            name: item2.name,
+                            mod_parent_id: item2.mod_parent_id,
+                            expect_score: item2.expect_score,
+                            isCatalogue: true,
+                            childArr: []
+                        })
+                        //删除已经push到treeData中的节点
+                        tableData.splice(tableData.indexOf(item2), 1)
+                    }
+                })
+                //递归调用
+                this.getChildTreeData(tableData, item.childArr)
+            })
+            return treeData
+        },
+        testFunc() {
+            console.log(this.treeData);
         },
         // handleGetDragChild(id) {//传入当前ID
         //     this.testDataArr[id].childArr = []
@@ -76,28 +86,32 @@ export default defineComponent({
     components: {
         newDrag
     },
+    mounted() {
+        this.handleGetTreeData()
+    },
     data() {
         return {
+            treeElement: {},
             treeData: [
-                {
-                    id: 0,
-                    name: '0',
-                    expectScore: 15,
-                    childArr: [{
-                        id: 1,
-                        name: '1',
-                        expectScore: 15,
-                        childArr: [{id: 3, name: '3', expectScore: 15, childArr: [], isExtend: false}, {
-                            id: 4,
-                            name: '4',
-                            expectScore: 15,
-                            childArr: [],
-                            isExtend: false
-                        }],
-                        isExtend: false
-                    }, {id: 2, name: '2', expectScore: 15, childArr: [], isExtend: false},],
-                    isExtend: false
-                },
+                // {
+                //     id: 0,
+                //     name: '0',
+                //     expectScore: 15,
+                //     childArr: [{
+                //         id: 1,
+                //         name: '1',
+                //         expectScore: 15,
+                //         childArr: [{id: 3, name: '3', expectScore: 15, childArr: [], isExtend: false}, {
+                //             id: 4,
+                //             name: '4',
+                //             expectScore: 15,
+                //             childArr: [],
+                //             isExtend: false
+                //         }],
+                //         isExtend: false
+                //     }, {id: 2, name: '2', expectScore: 15, childArr: [], isExtend: false},],
+                //     isExtend: false
+                // },
             ]
         }
     }
