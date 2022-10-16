@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "noImplicitAny": false,
+    "allowUmdGlobalAccess": false,
     "target": "esnext",
     "module": "esnext",
     "strict": true,

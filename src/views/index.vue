@@ -5,8 +5,12 @@
                 <Aside @updateIndex="updateIndex"/>
             </el-header>
             <el-main>
-                <drag v-if="nowIndex===1"/>
+<!--                <drag v-if="nowIndex===1"/>-->
+<!--                <nav-menu :menus="menus" />-->
+                <NewDrages v-if="nowIndex===1"/>
                 <addLesson v-if="nowIndex===2"/>
+                <testTable v-if="nowIndex===3"/>
+                <testTree v-if="nowIndex===4"/>
             </el-main>
             <el-footer>
                 <div style="height: 100px">
@@ -27,28 +31,34 @@
 
 <script lang="ts">
 import Aside from "@/components/aside.vue";
+import NewDrages from "@/components/newDrags.vue";
 import Drag from "@/components/drags.vue";
 import addLesson from "@/components/addLesson.vue"
+import testTable from "@/components/testTable.vue"
+import testTree from "@/components/testTree.vue"
 import {defineComponent} from 'vue'
 
 export default defineComponent({
     name: 'index',
     methods: {
         updateIndex(n: number) {
-            // alert("hahahaha");
             this.nowIndex = n;
         },
     },
     data() {
         return {
-            nowIndex: 1
+            nowIndex: 1,
+
         }
     },
     components: {
-        Aside,
-        Drag,
-        addLesson
-    }
+    Aside,
+    Drag,
+    NewDrages,
+    addLesson,
+    testTable,
+    testTree
+}
 })
 
 </script>
